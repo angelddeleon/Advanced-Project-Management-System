@@ -1,4 +1,6 @@
 
+from datetime import datetime
+from collections import deque
 #Clase Proyecto
 
 class Proyecto:
@@ -175,3 +177,157 @@ while opcion < 5:
         opcion = int(input("Ingrese una opcion: "))
 
 
+class Tarea:
+    def __init__(self, id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje):
+        self.id = id
+        self.nombre = nombre
+        self.empresa_cliente = empresa_cliente
+        self.descripcion = descripcion
+        self.fecha_inicio = fecha_inicio
+        self.fecha_vencimiento = fecha_vencimiento
+        self.estado_actual = estado_actual
+        self.porcentaje = porcentaje
+        self.subtareas = []
+        self.pila_prioridades = []
+        self.cola_vencimientos = deque()
+
+    def agregar_subtarea(self, subtarea):
+        self.subtareas.append(subtarea)
+
+    def agregar_tarea(self, tarea, posicion=None):
+        if posicion is None:
+            self.subtareas.append(tarea)
+        else:
+            self.subtareas.insert(posicion, tarea)
+
+    def eliminar_tarea(self, id):
+        self.subtareas = [tarea for tarea in self.subtareas if tarea.id != id]
+
+    def buscar_tarea(self, criterio):
+        return [tarea for tarea in self.subtareas if criterio(tarea)]
+
+    def actualizar_tarea(self, id, **kwargs):
+        for tarea in self.subtareas:
+            if tarea.id == id:
+                for key, value in kwargs.items():
+                    setattr(tarea, key, value)
+                break
+
+    # Métodos para la pila de tareas prioritarias
+    def agregar_prioridad(self, tarea):
+        self.pila_prioridades.append(tarea)
+
+    def eliminar_prioridad(self):
+        if self.pila_prioridades:
+            return self.pila_prioridades.pop()
+
+
+    def consultar_prioridad(self):
+        return self.pila_prioridades[-1]
+
+    # Métodos para la cola de vencimientos
+    def agregar_vencimiento(self, tarea):
+        self.cola_vencimientos.append(tarea)
+
+    def eliminar_vencimiento(self):
+        return self.cola_vencimientos.popleft()
+
+    def consultar_proxima_vencer(self):
+        return self.cola_vencimientos[0]
+
+def menu():
+    print("1. Agregar tarea")
+    print("2. Eliminar tarea")
+    print("3. Buscar tarea")
+    print("4. Actualizar tarea")
+    print("5. Agregar prioridad")
+    print("6. Eliminar prioridad")
+    print("7. Consultar prioridad")
+    print("8. Agregar vencimiento")
+    print("9. Eliminar vencimiento")
+    print("10. Consultar próxima a vencer")
+    print("11. Salir")
+
+def main():
+    tarea_principal = Tarea(0, "Proyecto Principal", "Empresa X", "Descripción del proyecto", datetime.now(), datetime.now(), "En progreso", 0)
+    
+    while True:
+        menu()
+        opcion = input("Seleccione una opción: ")
+        
+        if opcion == '1':
+            id = input("Ingrese el ID de la tarea: ")
+            nombre = input("Ingrese el nombre de la tarea: ")
+            empresa_cliente = input("Ingrese la empresa cliente: ")
+            descripcion = input("Ingrese la descripción de la tarea: ")
+            fecha_inicio = datetime.strptime(input("Ingrese la fecha de inicio (dd/mm/yyyy): "), "%d/%m/%Y")
+            fecha_vencimiento = datetime.strptime(input("Ingrese la fecha de vencimiento (dd/mm/yyyy): "), "%d/%m/%Y")
+            estado_actual = input("Ingrese el estado actual de la tarea: ")
+            porcentaje = float(input("Ingrese el porcentaje completado: "))
+            
+            nueva_tarea = Tarea(id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
+            tarea_principal.agregar_tarea(nueva_tarea)
+            print("Tarea agregada exitosamente.")
+            
+        elif opcion == '2':
+            id = input("Ingrese el ID de la tarea a eliminar: ")
+            tarea_principal.eliminar_tarea(id)
+            print("Tarea eliminada exitosamente.")
+            
+        elif opcion == '3':
+            nombre = input("Ingrese el nombre de la tarea a buscar: ")
+            tareas_encontradas = tarea_principal.buscar_tarea(lambda x: x.nombre == nombre)
+            for t in tareas_encontradas:
+                print(f"Tarea encontrada: {t.nombre}")
+                
+        elif opcion == '4':
+            id = input("Ingrese el ID de la tarea a actualizar: ")
+            estado_actual = input("Ingrese el nuevo estado actual de la tarea: ")
+            porcentaje = float(input("Ingrese el nuevo porcentaje completado: "))
+            
+            tarea_principal.actualizar_tarea(id, estado_actual=estado_actual, porcentaje=porcentaje)
+            print("Tarea actualizada exitosamente.")
+            
+        elif opcion == '5':
+            id = input("Ingrese el ID de la tarea prioritaria a agregar: ")
+            tarea_prioritaria = next((t for t in tarea_principal.subtareas if t.id == id), None)
+            
+            if tarea_prioritaria:
+                tarea_principal.agregar_prioridad(tarea_prioritaria)
+                print("Tarea prioritaria agregada exitosamente.")
+                
+        elif opcion == '6':
+            tarea_eliminada = tarea_principal.eliminar_prioridad()
+            if tarea_eliminada:
+                print(f"Tarea prioritaria eliminada: {tarea_eliminada.nombre}")
+            else:
+                print("No hay tareas prioritarias para eliminar.")
+
+            
+        elif opcion == '7':
+            tarea_prioritaria = tarea_principal.consultar_prioridad()
+            print(f"Tarea prioritaria actual: {tarea_prioritaria.nombre}")
+            
+        elif opcion == '8':
+            id = input("Ingrese el ID de la tarea próxima a vencer a agregar: ")
+            tarea_proxima_vencer = next((t for t in tarea_principal.subtareas if t.id == id), None)
+            
+            if tarea_proxima_vencer:
+                tarea_principal.agregar_vencimiento(tarea_proxima_vencer)
+                print("Tarea próxima a vencer agregada exitosamente.")
+                
+        elif opcion == '9':
+            tarea_eliminada = tarea_principal.eliminar_vencimiento()
+            print(f"Tarea próxima a vencer eliminada: {tarea_eliminada.nombre}")
+            
+        elif opcion == '10':
+            tarea_proxima_vencer = tarea_principal.consultar_proxima_vencer()
+            print(f"Tarea próxima a vencer actual: {tarea_proxima_vencer.nombre}")
+            
+        elif opcion == '11':
+            break
+
+if __name__ == "__main__":
+    main()
+    
+    
