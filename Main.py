@@ -37,17 +37,89 @@ class Proyecto:
             Proyecto.lista_proyectos = listaNueva
 
     #Eliminar un proyecto por su nombre
+
+    #Modificar algun proyecto
+
+    def modificarId(id):
+            listaProyectos = Proyecto.lista_proyectos
+            listaNueva = []
+
+            #Recorre la lista de proyectos y sale un menu del cual debe de seleccionar lo que se quiere cambiar
+
+            for x in listaProyectos:
+                if x[0] == id:
+                    print("Que desea modificar\n1-nombre\n2-descripcion\n3-fechaInicio\n4-fechaVencimiento\n5-estadoActual\n6-empresa\n7-gerente\n8-equipo\n9-Todos")
+
+                    modificarOpcion = int(input("Marque su opcion: "))
+
+                    if modificarOpcion == 1:
+                        nombreModificado = str(input("Nuevo Nombre: "))
+                        x[1] = nombreModificado
+
+                    elif modificarOpcion == 2:
+                        descripcionModificado = str(input("Nueva Descripcion: "))
+                        x[2] = descripcionModificado
+
+                    elif modificarOpcion == 3:
+                        fechaInicioModificado = str(input("Nueva Fecha Inicio: "))
+                        x[3] = fechaInicioModificado
+
+                    elif modificarOpcion == 4:
+                        fechaVencimientoModificado = str(input("Nuevo Nombre: "))
+                        x[4] = fechaVencimientoModificado
+
+                    elif modificarOpcion == 5:
+                        estadoActualModificado = str(input("Nuevo Nombre: "))
+                        x[5] = estadoActualModificado
+                    
+                    elif modificarOpcion == 6:
+                        empresaModificado = str(input("Nuevo Nombre: "))
+                        x[6] = empresaModificado
+                    
+                    elif modificarOpcion == 7:
+                        gerenteModificado = str(input("Nuevo Nombre: "))
+                        x[7] = gerenteModificado
+
+                    elif modificarOpcion == 8:
+                        equipoModificado = str(input("Nuevo Nombre: "))
+                        x[8] = equipoModificado
+                    
+                    elif modificarOpcion == 9:
+                        nombreModificado = str(input("Nuevo Nombre: "))
+                        x[1] = nombreModificado
+                        descripcionModificado = str(input("Nueva Descripcion: "))
+                        x[2] = descripcionModificado
+                        fechaInicioModificado = str(input("Nueva Fecha Inicio: "))
+                        x[3] = fechaInicioModificado
+                        fechaVencimientoModificado = str(input("Nuevo Nombre: "))
+                        x[4] = fechaVencimientoModificado
+                        estadoActualModificado = str(input("Nuevo Nombre: "))
+                        x[5] = estadoActualModificado
+                        empresaModificado = str(input("Nuevo Nombre: "))
+                        x[6] = empresaModificado
+                        gerenteModificado = str(input("Nuevo Nombre: "))
+                        x[7] = gerenteModificado
+                        equipoModificado = str(input("Nuevo Nombre: "))
+                        x[8] = equipoModificado
+
+                    else:
+                        print("Ingrese una opcion valida")
+                        
+                
+                listaNueva += [x]
+
+            Proyecto.lista_proyectos = listaNueva
     
 
 
-print("Gestion de Proyectos y tareas\n1-crear\n2-modificar\n3-consultar\n4-eliminar\n5-listar\n6-Salir")
+print("Gestion de Proyectos y tareas\n1-crear\n2-modificar\n3-consultar\n4-eliminar\n5-Salir")
 
 
-contador = 0
+contador = 1
 opcion = int(input("Ingrese una opcion: "))
 
 
-while opcion < 6:
+while opcion < 5:
 
         if opcion == 1:
             #Tomando las variables para crear el nuevo proyecto
@@ -67,22 +139,36 @@ while opcion < 6:
             print("Su Proyecto ha sido creado Exitosamente")
 
             contador += 1
-
+        
         elif opcion == 2:
             result = Proyecto.consultar()
             print(result)
+
+            print("Que proyecto desea modificar(por id): ")
+
+            proyectoId = int(input("Proyecto a modificar"))
+
+            Proyecto.modificarId(proyectoId)
+
+            print("Su proyecto ha sido Modificado")
 
         elif opcion == 3:
             result = Proyecto.consultar()
             print(result)
 
+        elif opcion == 4:
+            result = Proyecto.consultar()
+            print(result)
+
             print("Cual Proyecto desea Eliminar (Por id): ")
 
-            proyectoId = int(input("Proyecto a eliminar"))
+            proyectoId = int(input("Proyecto a eliminar: "))
 
 
 
             Proyecto.eliminarId(proyectoId)
+
+            
 
 
 
