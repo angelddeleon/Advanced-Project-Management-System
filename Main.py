@@ -202,7 +202,7 @@ class Tarea:
             self.tareas.insert(posicion, tarea)
 
     def eliminar_tarea(self, id):
-        self.subtareas = [tarea for tarea in self.subtareas if tarea.id != id]
+        self.tareas = [tarea for tarea in self.tareas if tarea.id != id]
 
     def buscar_tarea(self, criterio):
         return [tarea for tarea in self.subtareas if criterio(tarea)]
@@ -237,17 +237,18 @@ class Tarea:
         return self.cola_vencimientos[0]
 
 def menu():
-    print("1. Agregar tarea")
-    print("2. Eliminar tarea")
-    print("3. Buscar tarea")
-    print("4. Actualizar tarea")
-    print("5. Agregar prioridad")
-    print("6. Eliminar prioridad")
-    print("7. Consultar prioridad")
-    print("8. Agregar vencimiento")
-    print("9. Eliminar vencimiento")
-    print("10. Consultar próxima a vencer")
-    print("11. Salir")
+    print("1. Crear tarea")
+    print("2. Insertar tarea en posición específica")
+    print("3. Eliminar tarea")
+    print("4. Buscar tarea")
+    print("5. Actualizar tarea")
+    print("6. Agregar prioridad")
+    print("7. Eliminar prioridad")
+    print("8. Consultar prioridad")
+    print("9. Agregar vencimiento")
+    print("10. Eliminar vencimiento")
+    print("11. Consultar próxima a vencer")
+    print("12. Salir")
 
 def main():
     tarea_principal = Tarea(0, "Proyecto Principal", "Empresa X", "Descripción del proyecto", datetime.now(), datetime.now(), "En progreso", 0)
