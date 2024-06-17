@@ -270,47 +270,66 @@ def main():
             nueva_tarea = Tarea(id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
             tarea_principal.agregar_tarea(nueva_tarea)
             print("Tarea agregada exitosamente.")
-            
+            print([t.nombre for t in tarea_principal.tareas])
+        
         elif opcion == '2':
-            id = input("Ingrese el ID de la tarea a eliminar: ")
-            tarea_principal.eliminar_tarea(id)
-            print("Tarea eliminada exitosamente.")
+            id = input("Ingrese el ID de la tarea: ")
+            nombre = input("Ingrese el nombre de la tarea: ")
+            empresa_cliente = input("Ingrese la empresa cliente: ")
+            descripcion = input("Ingrese la descripción de la tarea: ")
+            fecha_inicio = datetime.strptime(input("Ingrese la fecha de inicio (dd/mm/yyyy): "), "%d/%m/%Y")
+            fecha_vencimiento = datetime.strptime(input("Ingrese la fecha de vencimiento (dd/mm/yyyy): "), "%d/%m/%Y")
+            estado_actual = input("Ingrese el estado actual de la tarea: ")
+            porcentaje = float(input("Ingrese el porcentaje completado: "))
+            posicion = int(input("Ingrese la posición donde desea insertar la tarea: "))
+            
+            nueva_tarea = Tarea(id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
+            tarea_principal.agregar_tarea(nueva_tarea, posicion)
+            print("Tarea insertada exitosamente en la posición especificada.")
+            print([t.nombre for t in tarea_principal.tareas])
             
         elif opcion == '3':
+            id = input("Ingrese el ID de la tarea a eliminar: ")
+            tarea_principal.eliminar_tarea(id)
+            for tarea in tarea_principal.tareas:
+                print(tarea.nombre)
+                
+        elif opcion == '4':
             nombre = input("Ingrese el nombre de la tarea a buscar: ")
             tareas_encontradas = tarea_principal.buscar_tarea(lambda x: x.nombre == nombre)
             for t in tareas_encontradas:
                 print(f"Tarea encontrada: {t.nombre}")
-                
-        elif opcion == '4':
+            
+        elif opcion == '5':
             id = input("Ingrese el ID de la tarea a actualizar: ")
             estado_actual = input("Ingrese el nuevo estado actual de la tarea: ")
             porcentaje = float(input("Ingrese el nuevo porcentaje completado: "))
             
             tarea_principal.actualizar_tarea(id, estado_actual=estado_actual, porcentaje=porcentaje)
             print("Tarea actualizada exitosamente.")
-            
-        elif opcion == '5':
+        
+                
+        elif opcion == '6':
             id = input("Ingrese el ID de la tarea prioritaria a agregar: ")
             tarea_prioritaria = next((t for t in tarea_principal.subtareas if t.id == id), None)
             
             if tarea_prioritaria:
                 tarea_principal.agregar_prioridad(tarea_prioritaria)
                 print("Tarea prioritaria agregada exitosamente.")
-                
-        elif opcion == '6':
+
+            
+        elif opcion == '7':
             tarea_eliminada = tarea_principal.eliminar_prioridad()
             if tarea_eliminada:
                 print(f"Tarea prioritaria eliminada: {tarea_eliminada.nombre}")
             else:
                 print("No hay tareas prioritarias para eliminar.")
-
-            
-        elif opcion == '7':
+        
+        elif opcion == '8':
             tarea_prioritaria = tarea_principal.consultar_prioridad()
             print(f"Tarea prioritaria actual: {tarea_prioritaria.nombre}")
             
-        elif opcion == '8':
+        elif opcion == '9':
             id = input("Ingrese el ID de la tarea próxima a vencer a agregar: ")
             tarea_proxima_vencer = next((t for t in tarea_principal.subtareas if t.id == id), None)
             
@@ -318,15 +337,15 @@ def main():
                 tarea_principal.agregar_vencimiento(tarea_proxima_vencer)
                 print("Tarea próxima a vencer agregada exitosamente.")
                 
-        elif opcion == '9':
+        elif opcion == '10':
             tarea_eliminada = tarea_principal.eliminar_vencimiento()
             print(f"Tarea próxima a vencer eliminada: {tarea_eliminada.nombre}")
             
-        elif opcion == '10':
+        elif opcion == '11':
             tarea_proxima_vencer = tarea_principal.consultar_proxima_vencer()
             print(f"Tarea próxima a vencer actual: {tarea_proxima_vencer.nombre}")
             
-        elif opcion == '11':
+        elif opcion == '12':
             break
 
 if __name__ == "__main__":
