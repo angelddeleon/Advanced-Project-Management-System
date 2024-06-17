@@ -197,9 +197,9 @@ class Tarea:
 
     def agregar_tarea(self, tarea, posicion=None):
         if posicion is None:
-            self.subtareas.append(tarea)
+            self.tareas.append(tarea)
         else:
-            self.subtareas.insert(posicion, tarea)
+            self.tareas.insert(posicion, tarea)
 
     def eliminar_tarea(self, id):
         self.subtareas = [tarea for tarea in self.subtareas if tarea.id != id]
