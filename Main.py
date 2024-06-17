@@ -195,6 +195,10 @@ class Tarea:
     def agregar_subtarea(self, subtarea):
         self.subtareas.append(subtarea)
 
+    def crear_tarea(self, tarea, posicion=None):
+        if posicion is None:
+            self.tareas.append(tarea)
+            
     def agregar_tarea(self, tarea, posicion=None):
         if posicion is None:
             self.tareas.append(tarea)
@@ -205,10 +209,10 @@ class Tarea:
         self.tareas = [tarea for tarea in self.tareas if tarea.id != id]
 
     def buscar_tarea(self, criterio):
-        return [tarea for tarea in self.subtareas if criterio(tarea)]
+        return [tarea for tarea in self.tareas if criterio(tarea)]
 
     def actualizar_tarea(self, id, **kwargs):
-        for tarea in self.subtareas:
+        for tarea in self.tareas:
             if tarea.id == id:
                 for key, value in kwargs.items():
                     setattr(tarea, key, value)
@@ -268,7 +272,7 @@ def main():
             porcentaje = float(input("Ingrese el porcentaje completado: "))
             
             nueva_tarea = Tarea(id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
-            tarea_principal.agregar_tarea(nueva_tarea)
+            tarea_principal.crear_tarea(nueva_tarea)
             print("Tarea agregada exitosamente.")
             print([t.nombre for t in tarea_principal.tareas])
         
@@ -299,15 +303,66 @@ def main():
             tareas_encontradas = tarea_principal.buscar_tarea(lambda x: x.nombre == nombre)
             for t in tareas_encontradas:
                 print(f"Tarea encontrada: {t.nombre}")
+                print(f"ID: {t.id}")
+                print(f"Empresa Cliente: {t.empresa_cliente}")
+                print(f"Descripción: {t.descripcion}")
+                print(f"Fecha Inicio: {t.fecha_inicio.strftime('%d/%m/%Y')}")
+                print(f"Fecha Vencimiento: {t.fecha_vencimiento.strftime('%d/%m/%Y')}")
+                print(f"Estado Actual: {t.estado_actual}")
+                print(f"Porcentaje Completado: {t.porcentaje}%")
+
             
         elif opcion == '5':
             id = input("Ingrese el ID de la tarea a actualizar: ")
-            estado_actual = input("Ingrese el nuevo estado actual de la tarea: ")
-            porcentaje = float(input("Ingrese el nuevo porcentaje completado: "))
+            print("Ingrese los nuevos datos de la tarea (deje en blanco si no desea cambiarlos):")
+            nombre = input("Nuevo nombre: ")
+            empresa_cliente = input("Nueva empresa cliente: ")
+            descripcion = input("Nueva descripción: ")
+            fecha_inicio = input("Nueva fecha de inicio (dd/mm/yyyy): ")
+            fecha_vencimiento = input("Nueva fecha de vencimiento (dd/mm/yyyy): ")
+            estado_actual = input("Nuevo estado actual: ")
+            porcentaje = input("Nuevo porcentaje completado: ")
             
-            tarea_principal.actualizar_tarea(id, estado_actual=estado_actual, porcentaje=porcentaje)
+            kwargs = {}
+            
+            if nombre:
+                kwargs['nombre'] = nombre
+                
+            if empresa_cliente:
+                kwargs['empresa_cliente'] = empresa_cliente
+                
+            if descripcion:
+                kwargs['descripcion'] = descripcion
+            
+            if fecha_inicio:
+                kwargs['fecha_inicio'] = datetime.strptime(fecha_inicio, "%d/%m/%Y")
+                
+            if fecha_vencimiento:
+                kwargs['fecha_vencimiento'] = datetime.strptime(fecha_vencimiento, "%d/%m/%Y")
+                
+            if estado_actual:
+                kwargs['estado_actual'] = estado_actual
+                
+            if porcentaje:
+                kwargs['porcentaje'] = float(porcentaje)
+                
+            tarea_principal.actualizar_tarea(id, **kwargs)
             print("Tarea actualizada exitosamente.")
-        
+            
+            tarea_actualizada = next((t for t in tarea_principal.tareas if t.id == id), None)
+            if tarea_actualizada:
+                print(f"Tarea actualizada: {tarea_actualizada.nombre}")
+                print(f"ID: {tarea_actualizada.id}")
+                print(f"Empresa Cliente: {tarea_actualizada.empresa_cliente}")
+                print(f"Descripción: {tarea_actualizada.descripcion}")
+                print(f"Fecha Inicio: {tarea_actualizada.fecha_inicio.strftime('%d/%m/%Y')}")
+                print(f"Fecha Vencimiento: {tarea_actualizada.fecha_vencimiento.strftime('%d/%m/%Y')}")
+                print(f"Estado Actual: {tarea_actualizada.estado_actual}")
+                print(f"Porcentaje Completado: {tarea_actualizada.porcentaje}%")
+            
+            else:
+                print("No se encontró la tarea con el ID proporcionado.")
+
                 
         elif opcion == '6':
             id = input("Ingrese el ID de la tarea prioritaria a agregar: ")
@@ -316,8 +371,7 @@ def main():
             if tarea_prioritaria:
                 tarea_principal.agregar_prioridad(tarea_prioritaria)
                 print("Tarea prioritaria agregada exitosamente.")
-
-            
+      
         elif opcion == '7':
             tarea_eliminada = tarea_principal.eliminar_prioridad()
             if tarea_eliminada:
