@@ -187,6 +187,7 @@ class Tarea:
         self.fecha_vencimiento = fecha_vencimiento
         self.estado_actual = estado_actual
         self.porcentaje = porcentaje
+        self.tareas = []
         self.subtareas = []
         self.pila_prioridades = []
         self.cola_vencimientos = deque()
