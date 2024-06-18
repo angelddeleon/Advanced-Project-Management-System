@@ -1,6 +1,7 @@
 
 from datetime import datetime
 from collections import deque
+from bisect import insort
 #Clase Proyecto
 
 class Proyecto:
@@ -244,12 +245,20 @@ class Tarea:
         return self.pila_prioridades[-1]
     
     def calcular_tiempo_total_prioridades(self):
-        return sum(tarea.duracion for tarea in self.pila_prioridades)
+        tiempo_total = sum((tarea.fecha_vencimiento - tarea.fecha_inicio).total_seconds() / 3600 for tarea in self.pila_prioridades)
+        return tiempo_total
 
 
     # Métodos para la cola de vencimientos
     def agregar_vencimiento(self, tarea):
-        self.cola_vencimientos.append(tarea)
+        # Convert deque to list for sorting
+        vencimientos_list = list(self.cola_vencimientos)
+        
+        # Insert task in sorted order based on due date
+        insort(vencimientos_list, (tarea.fecha_vencimiento, tarea))
+        
+        # Convert back to deque
+        self.cola_vencimientos = deque(vencimientos_list)
 
     def eliminar_vencimiento(self):
         return self.cola_vencimientos.popleft()
@@ -289,7 +298,7 @@ def main():
             estado_actual = input("Ingrese el estado actual de la tarea: ")
             porcentaje = float(input("Ingrese el porcentaje completado: "))
             
-            nueva_tarea = Tarea(id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
+            nueva_tarea = Tarea(id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje, prioridad =1)
             tarea_principal.crear_tarea(nueva_tarea)
             print("Tarea agregada exitosamente.")
             print([t.nombre for t in tarea_principal.tareas])
@@ -305,7 +314,7 @@ def main():
             porcentaje = float(input("Ingrese el porcentaje completado: "))
             posicion = int(input("Ingrese la posición donde desea insertar la tarea: "))
             
-            nueva_tarea = Tarea(id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje)
+            nueva_tarea = Tarea(id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje, prioridad =1)
             tarea_principal.agregar_tarea(nueva_tarea, posicion)
             print("Tarea insertada exitosamente en la posición especificada.")
             print([t.nombre for t in tarea_principal.tareas])
@@ -413,15 +422,19 @@ def main():
             
         elif opcion == '9':
             tiempo_total = tarea_principal.calcular_tiempo_total_prioridades()
-            print(f"Tiempo total de las tareas prioritarias: {tiempo_total} horas")
+            print(f"Tiempo total de las tareas prioritarias: {tiempo_total:.2f} horas")
             
         elif opcion == '10':
             id = input("Ingrese el ID de la tarea próxima a vencer a agregar: ")
-            tarea_proxima_vencer = next((t for t in tarea_principal.subtareas if t.id == id), None)
+            tarea_proxima_vencer = next((t for t in tarea_principal.tareas if t.id == id), None)
             
             if tarea_proxima_vencer:
                 tarea_principal.agregar_vencimiento(tarea_proxima_vencer)
                 print("Tarea próxima a vencer agregada exitosamente.")
+                
+            print("Tareas próximas a vencer:")
+            for _, tarea in tarea_principal.cola_vencimientos:
+                print(f"ID: {tarea.id}, Fecha de Vencimiento: {tarea.fecha_vencimiento}")
                 
         elif opcion == '11':
             tarea_eliminada = tarea_principal.eliminar_vencimiento()
