@@ -259,10 +259,11 @@ def menu():
     print("6. Agregar prioridad")
     print("7. Eliminar prioridad")
     print("8. Consultar prioridad")
-    print("9. Agregar vencimiento")
-    print("10. Eliminar vencimiento")
-    print("11. Consultar próxima a vencer")
-    print("12. Salir")
+    print("9. Mostrar tiempo total de las tares prioritarias")
+    print("10. Agregar vencimiento")
+    print("11. Eliminar vencimiento")
+    print("12. Consultar próxima a vencer")
+    print("13. Salir")
 
 def main():
     tarea_principal = Tarea(0, "Proyecto Principal", "Empresa X", "Descripción del proyecto", datetime.now(), datetime.now(), "En progreso", 0)
@@ -403,7 +404,7 @@ def main():
             tarea_prioritaria = tarea_principal.consultar_prioridad()
             print(f"Tarea prioritaria actual: {tarea_prioritaria.nombre}")
             
-        elif opcion == '9':
+        elif opcion == '10':
             id = input("Ingrese el ID de la tarea próxima a vencer a agregar: ")
             tarea_proxima_vencer = next((t for t in tarea_principal.subtareas if t.id == id), None)
             
@@ -411,15 +412,15 @@ def main():
                 tarea_principal.agregar_vencimiento(tarea_proxima_vencer)
                 print("Tarea próxima a vencer agregada exitosamente.")
                 
-        elif opcion == '10':
+        elif opcion == '11':
             tarea_eliminada = tarea_principal.eliminar_vencimiento()
             print(f"Tarea próxima a vencer eliminada: {tarea_eliminada.nombre}")
             
-        elif opcion == '11':
+        elif opcion == '12':
             tarea_proxima_vencer = tarea_principal.consultar_proxima_vencer()
             print(f"Tarea próxima a vencer actual: {tarea_proxima_vencer.nombre}")
             
-        elif opcion == '12':
+        elif opcion == '13':
             break
 
 if __name__ == "__main__":
