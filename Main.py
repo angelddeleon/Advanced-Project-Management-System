@@ -437,8 +437,11 @@ def main():
                 print(f"ID: {tarea.id}, Fecha de Vencimiento: {tarea.fecha_vencimiento}")
                 
         elif opcion == '11':
-            tarea_eliminada = tarea_principal.eliminar_vencimiento()
-            print(f"Tarea próxima a vencer eliminada: {tarea_eliminada.nombre}")
+            if tarea_principal.cola_vencimientos:
+                tarea_eliminada = tarea_principal.eliminar_vencimiento()[1]
+                print(f"Tarea próxima a vencer eliminada: {tarea_eliminada.nombre}")
+            else:
+                print("No hay tareas próximas a vencer para eliminar.")
             
         elif opcion == '12':
             tarea_proxima_vencer = tarea_principal.consultar_proxima_vencer()
