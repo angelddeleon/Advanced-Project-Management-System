@@ -290,6 +290,9 @@ class Tarea:
             print(f"ID: {tarea.id}, Nombre: {tarea.nombre}, Fecha Inicio: {tarea.fecha_inicio.strftime('%d/%m/%Y')}, Fecha Vencimiento: {tarea.fecha_vencimiento.strftime('%d/%m/%Y')}")
 
 def menu():
+    print("-----------------------------------------")
+    print("Modulo de gestion de tareas y prioridades")
+    print("-----------------------------------------")
     print("1. Crear tarea")
     print("1.1 Crear subtarea para una tarea existente")
     print("2. Insertar tarea en posición específica")
