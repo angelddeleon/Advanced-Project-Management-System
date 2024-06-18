@@ -114,8 +114,10 @@ class Proyecto:
             Proyecto.lista_proyectos = listaNueva
     
 
-
-print("Gestion de Proyectos y tareas\n1-crear\n2-modificar\n3-consultar\n4-eliminar\n5-Salir")
+print("--------------------------")
+print("Modulo de Gestion de proyectos")
+print("--------------------------")
+print("\n1-crear\n2-modificar\n3-consultar\n4-eliminar\n5-Salir")
 
 
 contador = 1
@@ -199,15 +201,16 @@ class Tarea:
     def agregar_subtarea(self, subtarea):
         self.subtareas.append(subtarea)
 
-    def crear_tarea(self, tarea, posicion=None):
-        if posicion is None:
-            self.tareas.append(tarea)
             
     def agregar_tarea(self, tarea, posicion=None):
         if posicion is None:
             self.tareas.append(tarea)
         else:
             self.tareas.insert(posicion, tarea)
+            
+    def buscar_tarea_por_nombre(self, nombre):
+        tareas_encontradas = [tarea for tarea in self.tareas if tarea.nombre == nombre]
+        return tareas_encontradas
 
     def eliminar_tarea(self, id):
         self.tareas = [tarea for tarea in self.tareas if tarea.id != id]
@@ -270,9 +273,25 @@ class Tarea:
         tiempo_total_segundos = sum((tarea.fecha_vencimiento - datetime.now()).total_seconds() for _, tarea in self.cola_vencimientos)
         tiempo_total_dias = tiempo_total_segundos / 86400
         return tiempo_total_dias
+    
+    def consultar_tareas_por_estado(self, estado_actual):
+        tareas_filtradas = [tarea for tarea in self.tareas if tarea.estado_actual == estado_actual]
+        print(f"Tareas con estado '{estado_actual}':")
+        for tarea in tareas_filtradas:
+            print(f"ID: {tarea.id}, Nombre: {tarea.nombre}")
+    
+    def filtrar_tareas_por_fecha(self, fecha_inicio=None, fecha_fin=None):
+        tareas_filtradas = [tarea for tarea in self.tareas if (
+            (not fecha_inicio or tarea.fecha_inicio >= fecha_inicio) and
+            (not fecha_fin or tarea.fecha_vencimiento <= fecha_fin)
+        )]
+        print("Tareas filtradas por fecha:")
+        for tarea in tareas_filtradas:
+            print(f"ID: {tarea.id}, Nombre: {tarea.nombre}, Fecha Inicio: {tarea.fecha_inicio.strftime('%d/%m/%Y')}, Fecha Vencimiento: {tarea.fecha_vencimiento.strftime('%d/%m/%Y')}")
 
 def menu():
     print("1. Crear tarea")
+    print("1.1 Crear subtarea para una tarea existente")
     print("2. Insertar tarea en posición específica")
     print("3. Eliminar tarea")
     print("4. Buscar tarea")
@@ -285,7 +304,12 @@ def menu():
     print("11. Eliminar vencimiento")
     print("12. Consultar próxima a vencer")
     print("13. Mostrar tiempo total de vencimientos")
-    print("14. Salir")
+    print("---------------------")
+    print("Modulo de Reportes")
+    print("---------------------")
+    print("14. Consulta de Tareas por Estado")
+    print("15. Filtrado por Fecha")
+    print("16. Salir")
 
 def main():
     tarea_principal = Tarea(0, "Proyecto Principal", "Empresa X", "Descripción del proyecto", datetime.now(), datetime.now(), "En progreso", 0, prioridad = 1)
@@ -305,9 +329,28 @@ def main():
             porcentaje = float(input("Ingrese el porcentaje completado: "))
             
             nueva_tarea = Tarea(id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje, prioridad =1)
-            tarea_principal.crear_tarea(nueva_tarea)
+            tarea_principal.agregar_tarea(nueva_tarea)
             print("Tarea agregada exitosamente.")
             print([t.nombre for t in tarea_principal.tareas])
+        
+        elif opcion == '1.1':
+            nombre_tarea_principal = input("Ingrese el nombre de la tarea principal:")
+            tarea_principal = tarea_principal.buscar_tarea_por_nombre(nombre_tarea_principal) 
+            if tarea_principal:
+                id_subtarea = input("Ingrese el ID de la subtarea: ")
+                nombre_subtarea = input("Ingrese el nombre de la subtarea: ")
+                empresa_cliente_subtarea = input("Ingrese la empresa cliente de la subtarea: ")
+                descripcion_subtarea = input("Ingrese la descripción de la subtarea: ")
+                fecha_inicio_subtarea = datetime.strptime(input("Ingrese la fecha de inicio de la subtarea (dd/mm/yyyy): "), "%d/%m/%Y")
+                fecha_vencimiento_subtarea = datetime.strptime(input("Ingrese la fecha de vencimiento de la subtarea (dd/mm/yyyy): "), "%d/%m/%Y")
+                estado_actual_subtarea = input("Ingrese el estado actual de la subtarea: ")
+                porcentaje_subtarea = float(input("Ingrese el porcentaje completado de la subtarea: "))
+                nueva_subtarea = Tarea(id_subtarea, nombre_subtarea, empresa_cliente_subtarea, descripcion_subtarea, fecha_inicio_subtarea, fecha_vencimiento_subtarea, estado_actual_subtarea, porcentaje_subtarea, prioridad_subatrea =1)
+                tarea_principal.agregar_subtarea(nueva_subtarea)
+                print("Subtarea agregada exitosamente.")
+            else:
+                print("Tarea principal no encontrada.")
+
         
         elif opcion == '2':
             id = input("Ingrese el ID de la tarea: ")
@@ -458,9 +501,26 @@ def main():
             print(f"Tiempo total restante para las tareas próximas a vencer: {tiempo_total_vencimiento_dias:.2f} días")
             
         elif opcion == '14':
+            estado_actual = input("Ingrese el estado de las tareas a consultar (pendiente, en progreso, completada): ")
+            tarea_principal.consultar_tareas_por_estado(estado_actual)
+            
+        elif opcion == '15':
+            try:
+                fecha_inicio_str = input("Ingrese la fecha de inicio (dd/mm/aaaa) (opcional): ")
+                fecha_inicio = datetime.strptime(fecha_inicio_str, "%d/%m/%Y") if fecha_inicio_str else None
+
+                fecha_fin_str = input("Ingrese la fecha de fin (dd/mm/aaaa) (opcional): ")
+                fecha_fin = datetime.strptime(fecha_fin_str, "%d/%m/%Y") if fecha_fin_str else None
+
+                tarea_principal.filtrar_tareas_por_fecha(fecha_inicio, fecha_fin)
+            except ValueError:
+                print("Formato de fecha no válido.")
+                
+        elif opcion == '16':
             break
 
 if __name__ == "__main__":
     main()
-    
-    
+
+
+
