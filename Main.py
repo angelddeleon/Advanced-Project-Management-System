@@ -366,11 +366,21 @@ def main():
                 
         elif opcion == '6':
             id = input("Ingrese el ID de la tarea prioritaria a agregar: ")
-            tarea_prioritaria = next((t for t in tarea_principal.subtareas if t.id == id), None)
-            
+            prioridad = int(input("Ingrese el número de prioridad de la tarea (1 es la más alta): "))
+            tarea_prioritaria = next((t for t in tarea_principal.tareas if t.id == id), None)
             if tarea_prioritaria:
-                tarea_principal.agregar_prioridad(tarea_prioritaria)
+                tarea_principal.pila_prioridades = [tarea for tarea in tarea_principal.pila_prioridades if tarea.id != id]
+                tarea_prioritaria.prioridad = prioridad
+                
+                indice_a_insertar = next((indice for indice, tarea in enumerate(tarea_principal.pila_prioridades) if tarea.prioridad <= prioridad), len(tarea_principal.pila_prioridades))
+                
+                tarea_principal.pila_prioridades.insert(indice_a_insertar, tarea_prioritaria)
                 print("Tarea prioritaria agregada exitosamente.")
+                print("Pila de tareas prioritarias:")
+                for tarea in reversed(tarea_principal.pila_prioridades):
+                    print(f"ID: {tarea.id}, Prioridad: {tarea.prioridad}")
+            else:
+                print("No se encontró la tarea con el ID proporcionado.")
       
         elif opcion == '7':
             tarea_eliminada = tarea_principal.eliminar_prioridad()
