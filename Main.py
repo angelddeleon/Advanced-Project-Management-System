@@ -335,8 +335,9 @@ def main():
         
         elif opcion == '1.1':
             nombre_tarea_principal = input("Ingrese el nombre de la tarea principal:")
-            tarea_principal = tarea_principal.buscar_tarea_por_nombre(nombre_tarea_principal) 
-            if tarea_principal:
+            tareas_principales = tarea_principal.buscar_tarea_por_nombre(nombre_tarea_principal) 
+            if tareas_principales:
+                tarea_a_modificar = tareas_principales[0]
                 id_subtarea = input("Ingrese el ID de la subtarea: ")
                 nombre_subtarea = input("Ingrese el nombre de la subtarea: ")
                 empresa_cliente_subtarea = input("Ingrese la empresa cliente de la subtarea: ")
@@ -345,9 +346,10 @@ def main():
                 fecha_vencimiento_subtarea = datetime.strptime(input("Ingrese la fecha de vencimiento de la subtarea (dd/mm/yyyy): "), "%d/%m/%Y")
                 estado_actual_subtarea = input("Ingrese el estado actual de la subtarea: ")
                 porcentaje_subtarea = float(input("Ingrese el porcentaje completado de la subtarea: "))
-                nueva_subtarea = Tarea(id_subtarea, nombre_subtarea, empresa_cliente_subtarea, descripcion_subtarea, fecha_inicio_subtarea, fecha_vencimiento_subtarea, estado_actual_subtarea, porcentaje_subtarea, prioridad_subatrea =1)
-                tarea_principal.agregar_subtarea(nueva_subtarea)
+                nueva_subtarea = Tarea(id_subtarea, nombre_subtarea, empresa_cliente_subtarea, descripcion_subtarea, fecha_inicio_subtarea, fecha_vencimiento_subtarea, estado_actual_subtarea, porcentaje_subtarea, prioridad =1)
+                tarea_a_modificar.agregar_subtarea(nueva_subtarea)
                 print("Subtarea agregada exitosamente.")
+                print([subtarea.nombre for subtarea in tarea_a_modificar.subtareas])
             else:
                 print("Tarea principal no encontrada.")
 
