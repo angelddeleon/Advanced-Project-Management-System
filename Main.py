@@ -219,8 +219,18 @@ class Tarea:
                 break
 
     # Métodos para la pila de tareas prioritarias
-    def agregar_prioridad(self, tarea):
-        self.pila_prioridades.append(tarea)
+    def agregar_prioridad(self, id_tarea, prioridad):
+        tarea_prioritaria = next((tarea for tarea in self.lista_tareas if tarea.id == id_tarea), None)
+        if tarea_prioritaria:
+            self.pila_prioridades = [tarea for tarea in self.pila_prioridades if tarea.id != id_tarea]
+            tarea_prioritaria.prioridad = prioridad
+            
+            indice_a_insertar = next((indice for indice, tarea in enumerate(self.pila_prioridades) if tarea.prioridad < prioridad), len(self.pila_prioridades))
+            
+            self.pila_prioridades.insert(indice_a_insertar, tarea_prioritaria)
+            print(f"Tarea prioritaria agregada exitosamente. ID: {id_tarea}, Prioridad: {prioridad}")
+        else:
+            print("Tarea no encontrada.")
 
     def eliminar_prioridad(self):
         if self.pila_prioridades:
