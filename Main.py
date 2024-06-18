@@ -178,7 +178,7 @@ while opcion < 5:
 
 
 class Tarea:
-    def __init__(self, id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje):
+    def __init__(self, id, nombre, empresa_cliente, descripcion, fecha_inicio, fecha_vencimiento, estado_actual, porcentaje, prioridad, duracion =0):
         self.id = id
         self.nombre = nombre
         self.empresa_cliente = empresa_cliente
@@ -187,10 +187,13 @@ class Tarea:
         self.fecha_vencimiento = fecha_vencimiento
         self.estado_actual = estado_actual
         self.porcentaje = porcentaje
+        self.prioridad = prioridad
+        self.duracion = duracion  
         self.tareas = []
         self.subtareas = []
         self.pila_prioridades = []
         self.cola_vencimientos = deque()
+        
 
     def agregar_subtarea(self, subtarea):
         self.subtareas.append(subtarea)
@@ -239,6 +242,10 @@ class Tarea:
 
     def consultar_prioridad(self):
         return self.pila_prioridades[-1]
+    
+    def calcular_tiempo_total_prioridades(self):
+        return sum(tarea.duracion for tarea in self.pila_prioridades)
+
 
     # Métodos para la cola de vencimientos
     def agregar_vencimiento(self, tarea):
@@ -266,7 +273,7 @@ def menu():
     print("13. Salir")
 
 def main():
-    tarea_principal = Tarea(0, "Proyecto Principal", "Empresa X", "Descripción del proyecto", datetime.now(), datetime.now(), "En progreso", 0)
+    tarea_principal = Tarea(0, "Proyecto Principal", "Empresa X", "Descripción del proyecto", datetime.now(), datetime.now(), "En progreso", 0, prioridad = 1)
     
     while True:
         menu()
@@ -403,6 +410,10 @@ def main():
         elif opcion == '8':
             tarea_prioritaria = tarea_principal.consultar_prioridad()
             print(f"Tarea prioritaria actual: {tarea_prioritaria.nombre}")
+            
+        elif opcion == '9':
+            tiempo_total = tarea_principal.calcular_tiempo_total_prioridades()
+            print(f"Tiempo total de las tareas prioritarias: {tiempo_total} horas")
             
         elif opcion == '10':
             id = input("Ingrese el ID de la tarea próxima a vencer a agregar: ")
