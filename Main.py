@@ -265,6 +265,11 @@ class Tarea:
 
     def consultar_proxima_vencer(self):
         return self.cola_vencimientos[0]
+    
+    def calcular_tiempo_total_vencimiento(self):
+        tiempo_total_segundos = sum((tarea.fecha_vencimiento - datetime.now()).total_seconds() for _, tarea in self.cola_vencimientos)
+        tiempo_total_dias = tiempo_total_segundos / 86400
+        return tiempo_total_dias
 
 def menu():
     print("1. Crear tarea")
@@ -279,7 +284,8 @@ def menu():
     print("10. Agregar vencimiento")
     print("11. Eliminar vencimiento")
     print("12. Consultar próxima a vencer")
-    print("13. Salir")
+    print("13. Mostrar tiempo total de vencimientos")
+    print("14. Salir")
 
 def main():
     tarea_principal = Tarea(0, "Proyecto Principal", "Empresa X", "Descripción del proyecto", datetime.now(), datetime.now(), "En progreso", 0, prioridad = 1)
@@ -444,10 +450,14 @@ def main():
                 print("No hay tareas próximas a vencer para eliminar.")
             
         elif opcion == '12':
-            tarea_proxima_vencer = tarea_principal.consultar_proxima_vencer()
+            tarea_proxima_vencer = tarea_principal.consultar_proxima_vencer()[1]
             print(f"Tarea próxima a vencer actual: {tarea_proxima_vencer.nombre}")
             
         elif opcion == '13':
+            tiempo_total_vencimiento_dias = tarea_principal.calcular_tiempo_total_vencimiento()
+            print(f"Tiempo total restante para las tareas próximas a vencer: {tiempo_total_vencimiento_dias:.2f} días")
+            
+        elif opcion == '14':
             break
 
 if __name__ == "__main__":
