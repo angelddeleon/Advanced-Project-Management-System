@@ -408,7 +408,6 @@ class FuncionalidadesDelMenu:
                 if estado_tarea == tarea.estado:
                     tareas_filtradas.append(tarea)
         print(f"\n\t     Todas las tareas con estado: {estado_tarea}")
-        print("\t"+"-"*51)
         for tarea in tareas_filtradas:
             print(f"\t      ID:{tarea.id}, Nombre: {tarea.nombre}, \n\t      Fecha inicio:{tarea.fecha_inicio.date()}, \n\t      Fecha vencimiento: {tarea.fecha_vencimiento.date()}\n")
 
