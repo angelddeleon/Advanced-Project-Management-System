@@ -4,14 +4,14 @@
       "1": [
         {
           "id": 1,
-          "nombre": "Diseño de ventana",
+          "nombre": "Diseñar interfaz de usuario",
           "descripcion": "Diseñar la interfaz de usuario de la aplicación móvil",
           "estado": "Completada"
         },
         {
           "id": 2,
-          "nombre": "Desarrollo de la lógica",
-          "descripcion": "Desarrollar la lógica de la aplicación",
+          "nombre": "Desarrollar prototipo",
+          "descripcion": "Desarrollar un prototipo de la aplicación móvil",
           "estado": "Pendiente"
         }
       ],
@@ -42,7 +42,7 @@
       "1": [
         {
           "id": 1,
-          "nombre": "Análisis ",
+          "nombre": "Análisis de requisitos",
           "descripcion": "Analizar los requisitos del sistema de gestión",
           "estado": "Completada"
         },
@@ -74,19 +74,19 @@
       "1": [
         {
           "id": 1,
-          "nombre": "Diseñar de la web",
-          "descripcion": "Diseñar la web web de comercio electrónico",
+          "nombre": "Diseñar sitio web",
+          "descripcion": "Diseñar el sitio web de comercio electrónico",
           "estado": "Completada"
         },
         {
           "id": 2,
-          "nombre": "funcionalidad de pago",
+          "nombre": "Desarrollar funcionalidad de pago",
           "descripcion": "Desarrollar la funcionalidad de pago del sitio web de comercio electrónico",
           "estado": "Pendiente"
         },
         {
           "id": 3,
-          "nombre": "Realizar pruebas ",
+          "nombre": "Realizar pruebas de usabilidad",
           "descripcion": "Realizar pruebas de usabilidad del sitio web de comercio electrónico",
           "estado": "Completada"
         },
@@ -100,7 +100,7 @@
       "2": [
         {
           "id": 1,
-          "nombre": " funcionalidad de búsqueda",
+          "nombre": "Desarrollar funcionalidad de búsqueda",
           "descripcion": "Desarrollar la funcionalidad de búsqueda del sitio web de comercio electrónico",
           "estado": "Completada"
         }
@@ -112,7 +112,7 @@
       "1": [
         {
           "id": 1,
-          "nombre": " vulnerabilidades",
+          "nombre": "Análisis de vulnerabilidades",
           "descripcion": "Analizar las vulnerabilidades del sistema de seguridad",
           "estado": "Completada"
         },
@@ -176,7 +176,7 @@
       "1": [
         {
           "id": 1,
-          "nombre": "requisitos",
+          "nombre": "Análisis de requisitos",
           "descripcion": "Analizar los requisitos del sistema de gestión de proyectos",
           "estado": "Completada"
         },
@@ -234,7 +234,7 @@
         },
         {
           "id": 2,
-          "nombre": "Realizar pruebas de compatibilidad",
+          "nombre":"Realizar pruebas de compatibilidad",
           "descripcion": "Realizar pruebas de compatibilidad de la aplicación de escritorio",
           "estado": "En progreso"
         }
