@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+import numpy
 
 class Pila:
     def __init__(self):
