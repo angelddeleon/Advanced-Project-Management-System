@@ -1,7 +1,7 @@
 [
     {
         "id": "1",
-        "nombre": "Proyecto Alpha",
+        "nombre": "Proyecto mercurio",
         "descripcion": "Desarrollo de una aplicación móvil",
         "fecha_inicio": "2024-01-01",
         "fecha_vencimiento": "2024-03-31",
@@ -12,9 +12,9 @@
         "tareas": [
             {
                 "id": "1",
-                "nombre": "Diseño de la interfaz",
+                "nombre": "Diseño de ventana",
                 "empresa_cliente": "TechCorp",
-                "descripcion": "Diseñar la interfaz de la aplicación",
+                "descripcion": "Diseñar la ventana de la aplicación",
                 "fecha_inicio": "2024-01-01",
                 "fecha_vencimiento": "2024-01-15",
                 "estado": "Completada",
@@ -22,14 +22,14 @@
                 "subtareas": [
                     {
                         "id": "1",
-                        "nombre": "Diseñar interfaz de usuario",
-                        "descripcion": "Diseñar la interfaz de usuario de la aplicación móvil",
+                        "nombre": "Diseñar ventana de usuario",
+                        "descripcion": "Diseñar la ventana de usuario de la aplicación móvil",
                         "estado": "Completada"
                     },
                     {
                         "id": "2",
-                        "nombre": "Desarrollar prototipo",
-                        "descripcion": "Desarrollar un prototipo de la aplicación móvil",
+                        "nombre": "Desarrollar prueba",
+                        "descripcion": "Desarrollar una prueba de la aplicación móvil",
                         "estado": "Pendiente"
                     }
                 ]
@@ -69,8 +69,8 @@
     },
     {
         "id": "2",
-        "nombre": "Proyecto Beta",
-        "descripcion": "Implementación de un sistema de gestión",
+        "nombre": "Proyecto venus",
+        "descripcion": "Implementación de un sistema de venta",
         "fecha_inicio": "2024-04-01",
         "fecha_vencimiento": "2024-06-30",
         "estado": "En progreso",
@@ -80,7 +80,7 @@
         "tareas": [
             {
                 "id": "1",
-                "nombre": "Análisis de requisitos",
+                "nombre": "Análisis ",
                 "empresa_cliente": "CorpSys",
                 "descripcion": "Analizar los requisitos del sistema",
                 "fecha_inicio": "2024-04-01",
@@ -90,7 +90,7 @@
                 "subtareas": [
                     {
                         "id": "1",
-                        "nombre": "Análisis de requisitos",
+                        "nombre": "requisitos",
                         "descripcion": "Analizar los requisitos del sistema de gestión",
                         "estado": "Completada"
                     },
@@ -104,9 +104,9 @@
             },
             {
                 "id": "2",
-                "nombre": "Configuración del sistema",
+                "nombre": "Configuración",
                 "empresa_cliente": "CorpSys",
-                "descripcion": "Configurar el sistema de gestión",
+                "descripcion": "Configurar el sistema de venta",
                 "fecha_inicio": "2024-04-16",
                 "fecha_vencimiento": "2024-05-31",
                 "estado": "En progreso",
@@ -131,7 +131,7 @@
     },
     {
         "id": "3",
-        "nombre": "Proyecto Gamma",
+        "nombre": "Proyecto tierra",
         "descripcion": "Desarrollo de un sitio web",
         "fecha_inicio": "2024-07-01",
         "fecha_vencimiento": "2024-09-30",
@@ -142,7 +142,7 @@
         "tareas": [
             {
                 "id": "1",
-                "nombre": "Diseño del sitio web",
+                "nombre": "Diseño de la web",
                 "empresa_cliente": "WebDev",
                 "descripcion": "Diseñar el sitio web",
                 "fecha_inicio": "2024-07-01",
@@ -152,19 +152,19 @@
                 "subtareas": [
                     {
                         "id": "1",
-                        "nombre": "Diseñar sitio web",
-                        "descripcion": "Diseñar el sitio web de comercio electrónico",
+                        "nombre": "Diseñar web",
+                        "descripcion": "Diseñar la web de comercio electrónico",
                         "estado": "Completada"
                     },
                     {
                         "id": "2",
-                        "nombre": "Desarrollar funcionalidad de pago",
+                        "nombre": "funcionalidad de pago",
                         "descripcion": "Desarrollar la funcionalidad de pago del sitio web de comercio electrónico",
                         "estado": "Pendiente"
                     },
                     {
                         "id": "3",
-                        "nombre": "Realizar pruebas de usabilidad",
+                        "nombre": "Realizar pruebas ",
                         "descripcion": "Realizar pruebas de usabilidad del sitio web de comercio electrónico",
                         "estado": "Completada"
                     },
@@ -188,7 +188,7 @@
                 "subtareas": [
                     {
                         "id": "1",
-                        "nombre": "Desarrollar funcionalidad de búsqueda",
+                        "nombre": " funcionalidad de búsqueda",
                         "descripcion": "Desarrollar la funcionalidad de búsqueda del sitio web de comercio electrónico",
                         "estado": "Completada"
                     }
@@ -199,7 +199,7 @@
     },
     {
         "id": "4",
-        "nombre": "Proyecto Delta",
+        "nombre": "Proyecto marte",
         "descripcion": "Implementación de un sistema de seguridad",
         "fecha_inicio": "2024-10-01",
         "fecha_vencimiento": "2024-12-31",
@@ -210,7 +210,7 @@
         "tareas": [
             {
                 "id": "1",
-                "nombre": "Análisis de vulnerabilidades",
+                "nombre": "vulnerabilidades",
                 "empresa_cliente": "SecCorp",
                 "descripcion": "Analizar las vulnerabilidades del sistema",
                 "fecha_inicio": "2024-10-01",
@@ -267,7 +267,7 @@
     },
     {
         "id": "5",
-        "nombre": "Proyecto Epsilon",
+        "nombre": "Proyecto jupiter",
         "descripcion": "Desarrollo de un software de gestión",
         "fecha_inicio": "2024-01-01",
         "fecha_vencimiento": "2024-03-31",
@@ -278,7 +278,7 @@
         "tareas": [
             {
                 "id": "1",
-                "nombre": "Análisis de requisitos",
+                "nombre": " requisitos",
                 "empresa_cliente": "SoftCorp",
                 "descripcion": "Analizar los requisitos del software",
                 "fecha_inicio": "2024-01-01",
@@ -296,7 +296,7 @@
             },
             {
                 "id": "2",
-                "nombre": "Desarrollo del software",
+                "nombre": " software",
                 "empresa_cliente": "SoftCorp",
                 "descripcion": "Desarrollar el software",
                 "fecha_inicio": "2024-01-16",
@@ -306,7 +306,7 @@
                 "subtareas": [
                     {
                         "id": "1",
-                        "nombre": "Desarrollar funcionalidad de edición",
+                        "nombre": " funcionalidad de edición",
                         "descripcion": "Desarrollar la funcionalidad de edición de la aplicación de escritorio",
                         "estado": "Completada"
                     },
@@ -323,7 +323,7 @@
     },
     {
         "id": "6",
-        "nombre": "Proyecto Zeta",
+        "nombre": "Proyecto zaturno",
         "descripcion": "Implementación de un sistema de automatización",
         "fecha_inicio": "2024-04-01",
         "fecha_vencimiento": "2024-06-30",
@@ -344,7 +344,7 @@
                 "subtareas": [
                     {
                         "id": "1",
-                        "nombre": "Análisis de requisitos",
+                        "nombre": "  requisitos",
                         "descripcion": "Analizar los requisitos del sistema de gestión de proyectos",
                         "estado": "Completada"
                     },
@@ -391,7 +391,7 @@
     },
     {
         "id": "7",
-        "nombre": "Proyecto Eta",
+        "nombre": "Proyecto urano",
         "descripcion": "Desarrollo de un sitio web de comercio electrónico",
         "fecha_inicio": "2024-07-01",
         "fecha_vencimiento": "2024-09-30",
@@ -453,7 +453,7 @@
     },
     {
         "id": "8",
-        "nombre": "Proyecto Theta",
+        "nombre": "Proyecto neptuno",
         "descripcion": "Implementación de un sistema de control de acceso",
         "fecha_inicio": "2024-10-01",
         "fecha_vencimiento": "2024-12-31",
